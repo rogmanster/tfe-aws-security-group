@@ -22,7 +22,7 @@ module "ec2_instance" {
   ami = "ami-0932686c"
   instance_type = "t2.small"
   name = "aws-instance-1"
-  vpc_security_group_ids = [${module.security_group.this_security_group_id}]
+  vpc_security_group_ids = ["${module.security_group.this_security_group_id}"]
 }
 
 module "security_group" {
