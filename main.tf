@@ -16,9 +16,9 @@ module "web_server_sg" {
 
   name        = "web-server"
   description = "Security group for web-server with HTTP ports open within VPC"
-  vpc_id      = data.terraform_remote_state.rogercorp_aws_vpc_prod.vpc_id
+  vpc_id      = data.terraform_remote_state.rogercorp_aws_vpc_prod.outputs.vpc_id
 
-  #ingress_cidr_blocks = data.terraform_remote_state.rogercorp_aws_vpc_prod.cidr_block
+  ingress_cidr_blocks = data.terraform_remote_state.rogercorp_aws_vpc_prod.outputs.cidr_block
 }
 
 
