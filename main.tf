@@ -10,15 +10,17 @@ data "terraform_remote_state" "rogercorp_aws_vpc_prod" {
   }
 }
 
-// Modules
-module "security_group" {
-  source  = "app.terraform.io/rogercorp/security-group/aws"
-  version = "2.17.0"#
+// Modules  
+module "web_server_sg" {
+  source = "app.terraform.io/rogercorp/security-group/aws//modules/http-80"
 
-  name = "security-group-1"
-  vpc_id = "${data.terraform_remote_state.rogercorp_aws_vpc_prod.vpc_id}"
+  name        = "web-server"
+  description = "Security group for web-server with HTTP ports open within VPC"
+  vpc_id      = "${data.terraform_remote_state.rogercorp_aws_vpc_prod.vpc_id}"
+
+  ingress_cidr_blocks = ["${data.terraform_remote_state.rogercorp_aws_vpc_prod.vpc_cidr_block}"]
 }
-
+  
 output "vpc-id" {
   value = "${data.terraform_remote_state.rogercorp_aws_vpc_prod.vpc_id}"
 }
