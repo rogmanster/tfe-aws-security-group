@@ -10,9 +10,10 @@ data "terraform_remote_state" "rogercorp_aws_vpc_prod" {
   }
 }
 
-// Modules  
+// Modules
 module "web_server_sg" {
-  source = "app.terraform.io/rogercorp/security-group/aws//modules/http-80"
+  source  = "app.terraform.io/rogercorp/security-group-PMR/aws"
+  version = "3.4.0"
 
   name        = "${name}-web-server"
   description = "Security group for web-server with HTTP ports open within VPC"
@@ -20,5 +21,3 @@ module "web_server_sg" {
 
   ingress_cidr_blocks = [ data.terraform_remote_state.rogercorp_aws_vpc_prod.outputs.cidr_block ]
 }
-
-
