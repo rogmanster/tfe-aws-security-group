@@ -12,7 +12,7 @@ data "terraform_remote_state" "rogercorp_aws_vpc_prod" {
 
 // Modules
 module "web_server_sg" {
-  source  = "app.terraform.io/rogercorp/security-group-PMR/aws"
+  source  = "app.terraform.io/rogercorp/security-group-PMR/aws//modules/http-80"
   version = "3.4.0"
 
   name        = "${name}-web-server"
