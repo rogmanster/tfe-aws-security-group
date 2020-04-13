@@ -10,14 +10,26 @@ data "terraform_remote_state" "rogercorp_aws_vpc_prod" {
   }
 }
 
-// Modules
-module "web_server_sg" {
-  source  = "app.terraform.io/rogercorp/security-group-PMR/aws//modules/http-80"
-  version = "3.4.0"
+module "security-group" {
+  source  = "app.terraform.io/rogercorp/security-group-PMR/tfe"
+  version = "1.0.0"
 
-  name        = "${var.name}-web-server"
-  description = "Security group for web-server with HTTP ports open within VPC - v1"
-  vpc_id      = data.terraform_remote_state.rogercorp_aws_vpc_prod.outputs.vpc_id
+  name   = "rchao"
+  vpc_id = data.terraform_remote_state.rogercorp_aws_vpc_prod.outputs.vpc_id
 
-  ingress_cidr_blocks = [ data.terraform_remote_state.rogercorp_aws_vpc_prod.outputs.cidr_block ]
+  ingress = {
+    description = "http"
+    from_port   = "80"
+    to_port     = "80"
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress = {
+    from_port   = "0"
+    to_port     = "0"
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 }
