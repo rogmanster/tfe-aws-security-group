@@ -10,7 +10,7 @@ data "terraform_remote_state" "rogercorp_aws_vpc_prod" {
   }
 }
 
-module "security-group" {
+module "security_group" {
   source  = "app.terraform.io/rogercorp/security-group-PMR/tfe"
   version = "1.0.0"
 
