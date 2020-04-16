@@ -32,6 +32,13 @@ module "security_group" {
       protocol    = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
     },
+    {
+      description = "http"
+      from_port   = "8200"
+      to_port     = "8200"
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    },
   ]
 
   egress = [
