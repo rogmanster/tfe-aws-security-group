@@ -41,7 +41,7 @@ module "security_group" {
     },
   ]
 
-  egress = [
+  /*egress = [
     {
       description = "all"
       from_port   = "0"
@@ -49,6 +49,6 @@ module "security_group" {
       protocol    = "-1"
       cidr_blocks = ["0.0.0.0/0"]
     }
-  ]
+  ]*/
 
 }
